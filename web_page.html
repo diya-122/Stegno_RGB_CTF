@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arch Welcomes You</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Courier New', monospace;
+        background: radial-gradient(circle at center, #050505, #000000);
+        color: #fff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+        position: relative;
+    }
+
+    @keyframes bgPulse {
+        0% { background-color: #000; }
+        100% { background-color: #0a0a0a; }
+    }
+
+    /* Falling symbols style */
+    .bg-symbol {
+        position: absolute;
+        font-size: 0.8rem;
+        opacity: 0.2;
+        user-select: none;
+        pointer-events: none;
+        animation: fall linear infinite, glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(-10vh); opacity: 0; }
+        10% { opacity: 0.4; }
+        90% { opacity: 0.4; }
+        100% { transform: translateY(110vh); opacity: 0; }
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
+        to { text-shadow: 0 0 12px currentColor, 0 0 25px currentColor; }
+    }
+
+    /* Quotes style <!--Subject: Weekly Usage Stats
+                        Hey,
+                        As requested, here are the average login IDs this week:
+                        - 7 users signed in with evenly increasing IDs from 13 to 73.  
+                        Also, the backup system triggered a storage alert:
+                        - The last payload grew from 4KB to 64KB in 5 perfect doubling steps. 
+                        Can you verify which exact ID had the most activity, and what was the midpoint file size?
+                        - Admin
+                        -->*/
+    .quote {
+        position: absolute;
+        font-size: 1rem;
+        font-weight: bold;
+        opacity: 0;
+        color: #0ff;
+        text-shadow: 0 0 8px #0ff, 0 0 16px #f0f;
+        animation: fadeQuote 6s ease-in-out infinite;
+        pointer-events: none;
+        user-select: none;
+    }
+
+    @keyframes fadeQuote {
+        0%, 100% { opacity: 0; transform: scale(0.9); }
+        20%, 80% { opacity: 0.5; transform: scale(1); }
+    }
+
+    header {
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: auto;
+        margin-bottom: 15px;
+        z-index: 2;
+    }
+
+    header span {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid #0ff;
+        color: #0ff;
+        text-shadow: 0 0 15px #0ff, 0 0 30px #f0f, 0 0 60px #0ff;
+        animation: typing 2.5s steps(25) 1 forwards, blink 0.6s step-end infinite;
+    }
+
+    header.glow span {
+        border-right: none;
+        animation: headerGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 18ch; }
+    }
+
+    @keyframes blink {
+        50% { border-color: transparent; }
+    }
+
+    @keyframes headerGlow {
+        from { text-shadow: 0 0 15px #0ff, 0 0 30px #f0f, 0 0 60px #0ff; }
+        to { text-shadow: 0 0 30px #0ff, 0 0 50px #f0f, 0 0 80px #0ff; }
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        padding: 10px;
+        flex: 1;
+        align-items: center;
+        z-index: 2;
+    }
+
+    .card {
+        background: rgba(20, 20, 20, 0.8);
+        border: 2px solid #0ff;
+        border-radius: 10px;
+        box-shadow: 0 0 15px #0ff, 0 0 25px #f0f;
+        overflow: hidden;
+        width: 260px;
+        transition: 0.3s;
+        animation: float 4s ease-in-out infinite;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 30px #f0f, 0 0 45px #0ff;
+    }
+
+    .card img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        display: block;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+
+    .text {
+        padding: 10px;
+        text-align: center;
+        font-size: 0.9rem;
+        background: linear-gradient(90deg, #0ff, #f0f, #0ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% auto;
+        animation: gradientMove 3s infinite linear;
+    }
+
+    @keyframes gradientMove {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 1rem;
+        color: #f0f;
+        animation: glow 2s ease-in-out infinite alternate;
+        padding-bottom: 10px;
+        z-index: 2;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 8px #0ff, 0 0 16px #f0f; }
+        to { text-shadow: 0 0 20px #0ff, 0 0 40px #f0f; }
+    }
+</style>
+</head><!--[!] ERROR: Coordinate mismatch detected
+        > Target object failed validation.
+        > Reason: Unknown coordinate pattern
+        -->
+<body>
+
+<div id="bg-layer"></div>
+<div id="quotes-layer"></div>
+
+<header id="main-header">
+    <span><h2>Arch Welcomes You!!</h2></span>
+</header>
+
+<div class="container">
+    <div class="card">
+        <img src="1.jpeg" alt="Cyber Crime">
+        <div class="text">The trace... are you ready to evade?</div>
+    </div>
+    <div class="card">
+        <img src="2.jpeg" alt="Hacker">
+        <div class="text">It is not as easy as you think...</div>
+    </div>
+    <div class="card">
+        <img src="3.jpg" alt="Anonymous">
+        <div class="text">The shadows are watching. Will you survive?</div>
+    </div>
+</div>
+
+<div class="footer"><h3>💻 Crack the Code • Trace the Theft • Own the Game 💻</h3></div>
+
+<script>
+    setTimeout(() => {
+        document.getElementById("main-header").classList.add("glow");
+    }, 2600);
+
+    const bgLayer = document.getElementById("bg-layer");
+    const quotesLayer = document.getElementById("quotes-layer");
+
+    const symbols = ["<script>", "</>", "{...}", "0110", "root@", "#hack", "███", "$sudo", "if(true)", "while(1)", "Encrypt()", "💻", "127.0.0.1", "break;", "∞", "&&", "||", "===", ">", "<"];
+    const colors = ["#0ff", "#f0f", "#0f0"];
+    const screenW = window.innerWidth;
+    const screenH = window.innerHeight;
+
+    // Create falling symbols
+    for (let i = 0; i < 80; i++) {
+        const span = document.createElement("span");
+        span.className = "bg-symbol";
+        span.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        span.style.left = Math.random() * screenW + "px";
+        span.style.fontSize = (Math.random() * 1.2 + 0.6) + "rem";
+        span.style.color = colors[Math.floor(Math.random() * colors.length)];
+        const duration = Math.random() * 5 + 5; // 5-10s
+        const delay = Math.random() * 10;
+        span.style.animationDuration = `${duration}s, 3s`;
+        span.style.animationDelay = `${delay}s, ${Math.random()}s`;
+        bgLayer.appendChild(span);
+    }
+
+    /*Create random quotes/*Each glyph its rank in the chain of twenty-six.  
+                            First stands alone. One breath.  
+                            The rest? Follow its arching holds path.
+                            ~ARCH*/
+
+    const quotes = [
+        "Access Granted",
+        "System Breach Detected",
+        "Trace Initiated",
+        "Decrypting...",
+        "Firewall Breached",
+        "Injection Successful",
+        "Bypassing Security...",
+        "Target Locked"
+    ];
+    for (let i = 0; i < 6; i++) {
+        const q = document.createElement("div");
+        q.className = "quote";
+        q.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+        q.style.left = Math.random() * (screenW - 200) + "px";
+        q.style.top = Math.random() * (screenH - 100) + "px";
+        q.style.animationDelay = `${Math.random() * 10}s`;
+        quotesLayer.appendChild(q);
+    }
+</script>
+
+</body>
+</html>
